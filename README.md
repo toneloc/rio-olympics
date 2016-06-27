@@ -27,3 +27,5 @@ The goal of this app is to submit a workable fantasy sports-style Android app in
 * web API to keep track of top user scores
 * play friends in groups
 * facilitate Bitcoin payments via multisig
+* user Fiverr or related source to add in real-time updates
+* notifications
