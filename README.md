@@ -29,3 +29,6 @@ The goal of this app is to submit a workable fantasy sports-style Android app in
 * facilitate Bitcoin payments via multisig
 * user Fiverr or related source to add in real-time updates
 * notifications
+* Ripple effect for selection -  https://github.com/traex/RippleEffect
+* or swipe for selection - https://github.com/vcalvello/SwipeToAction
+* RecycleView for main page activity - https://github.com/CodeFalling/RecyclerViewSwipeDismiss
