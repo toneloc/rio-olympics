@@ -31,11 +31,15 @@ public class MainActivity extends AppCompatActivity {
     CountryListCursorAdapter mCountryListCursorAdapter;
     ArrayList<Country> mSelectedCountriesArrayList;
     ArrayList<String> mSelectedCountryNamesForGridDisplay;
+    TextView mRemainingMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mRemainingMoney = (TextView) findViewById(R.id.budget);
+
         myDbHelper = new DatabaseHelper(this);
 
         try {
@@ -90,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
             int mSelectedItem = position;
             mCountryListCursorAdapter.notifyDataSetChanged();
-            Toast.makeText(MainActivity.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
 
             addSelectedCountryToArray(mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem));
             }
@@ -104,9 +107,14 @@ public class MainActivity extends AppCompatActivity {
         //check if adding country is still under 8 countries and under budget
         if (mSelectedCountriesArrayList.size() < 8) {
             if (isUnderSalaryCap(selectedCountry)){
-                mSelectedCountriesArrayList.add(selectedCountry);
-                //only set grid view if there are countries in mSelectedCountriesArrayList
-                setGridView();
+                if (!isADuplicateSelection(selectedCountry)) {
+                    mSelectedCountriesArrayList.add(selectedCountry);
+                    //only set grid view if there are countries in mSelectedCountriesArrayList
+                    setGridView();
+                    calculateRemainingMoney(mSelectedCountriesArrayList);
+                }
+                else {
+                    Toast.makeText(MainActivity.this, "You have already chosen this country.", Toast.LENGTH_SHORT).show();}
             } else {
                 Toast.makeText(MainActivity.this, "You will exceed your salary cap.", Toast.LENGTH_SHORT).show();
             }
@@ -126,13 +134,10 @@ public class MainActivity extends AppCompatActivity {
         mSelectedCountryNamesForGridDisplay.add(name);
 
         mGridAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mSelectedCountryNamesForGridDisplay);
-
         mGridView.setAdapter(mGridAdapter);
-
 
     }
 
-    //unfortunately, we need a test country object before adding it to the array list of selected countries
     public boolean isUnderSalaryCap(Country selectedCountry) {
 
         float spentMoney = selectedCountry.getmPrice();
@@ -149,11 +154,36 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    publc i
+    public float calculateRemainingMoney(ArrayList<Country> selectedCountries) {
+        float spentMoney = 0;
+
+        for (int i = 0; i < mSelectedCountriesArrayList.size() ; i++) {
+            float thisCountryPrice = mSelectedCountriesArrayList.get(i).getmPrice();
+            spentMoney = thisCountryPrice + spentMoney;
+        }
+
+        float remainingMoney = 15000 - spentMoney;
+
+        mRemainingMoney.setText(Float.toString(remainingMoney) + " remaining");
+
+        return remainingMoney;
+    }
+
+    public boolean isADuplicateSelection(Country selectedCountry) {
+        boolean isADuplicateSelection = false;
+        for (int i = 0; i < mSelectedCountriesArrayList.size() ; i++) {
+            if (selectedCountry == mSelectedCountriesArrayList.get(i)) {
+                isADuplicateSelection = true;
+                break;
+            } else {
+                isADuplicateSelection = false;
+            }
+        }
+        return isADuplicateSelection;
+    }
 
 }
 
-//add code to check for duplicate countries in array list
-//add code to get remaining budget
-//add code to tally country results and score
-//add code to tally user score
+//add flags
+//add expandable listview
+//add a fragment that shows a pop up
