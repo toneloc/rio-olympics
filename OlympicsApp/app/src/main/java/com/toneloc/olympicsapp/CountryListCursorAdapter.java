@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -18,6 +19,9 @@ import java.util.Locale;
 //code from here: https://guides.codepath.com/android/Populating-a-ListView-with-a-CursorAdapter
 
 public class CountryListCursorAdapter extends CursorAdapter {
+
+    public ArrayList<Country> mArrayListOfAllCountryObjects;
+
     public CountryListCursorAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, 0);
     }
@@ -37,6 +41,7 @@ public class CountryListCursorAdapter extends CursorAdapter {
         // Find fields to populate in inflated template
         TextView tvBody = (TextView) view.findViewById(R.id.txt_country_name);
         TextView tvPriority = (TextView) view.findViewById(R.id.txt_price);
+
         // Extract properties from cursor
         String countryName = cursor.getString(cursor.getColumnIndexOrThrow("country"));
         int price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
@@ -46,8 +51,28 @@ public class CountryListCursorAdapter extends CursorAdapter {
         String formattedPrice = n.format(price);
         formattedPrice = formattedPrice.replaceAll("\\.00", "");
 
-        // Populate fields with extracted properties
+        //populate fields with extracted properties
         tvBody.setText(countryName);
         tvPriority.setText(String.valueOf(formattedPrice));
     }
+
+    public ArrayList<Country> generateArrayListOfAllCountryObjects(Cursor cursor) {
+
+        mArrayListOfAllCountryObjects = new ArrayList<>();
+
+        cursor.moveToFirst();
+        //we can also create country objects here ... ?
+        for (int i = 0; i < cursor.getCount(); i++) {
+            // Extract properties from cursor
+            String countryName = cursor.getString(cursor.getColumnIndexOrThrow("country"));
+            int price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
+
+            Country countryToAdd = new Country(countryName,price,0,0);
+            mArrayListOfAllCountryObjects.add(i,countryToAdd);
+            cursor.moveToNext();
+        }
+
+        return mArrayListOfAllCountryObjects;
+    }
+
 }

@@ -3,14 +3,14 @@ package com.toneloc.olympicsapp;
 /**
  * Created by t on 6/9/16.
  */
-public class Countries {
+public class Country {
     private String mName;
     private float mPrice;
     private int mIconID;
     private int mProjectedPoints;
 
 
-    public Countries(String name, float price, int iconID, int projectedPoints) {
+    public Country(String name, float price, int iconID, int projectedPoints) {
         super();
         this.mName = name;
         this.mPrice = price;

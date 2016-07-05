@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.*;
 import java.util.ArrayList;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -27,10 +26,11 @@ public class MainActivity extends AppCompatActivity {
     SQLiteDatabase db;
     DatabaseHelper myDbHelper;
     GridView mGridView;
-    ArrayAdapter<Integer> mGridAdapter;
+    ArrayAdapter<String> mGridAdapter;
     ListView mListViewCountries;
     CountryListCursorAdapter mCountryListCursorAdapter;
-    ArrayList<Integer> mSelectedCountriesArrayList;
+    ArrayList<Country> mSelectedCountriesArrayList;
+    ArrayList<String> mSelectedCountryNamesForGridDisplay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         setCountryListOnClick();
 
-        mSelectedCountriesArrayList = new ArrayList<Integer>();
-
-        setGridView();
-
+        mSelectedCountriesArrayList = new ArrayList<>();
+        mSelectedCountryNamesForGridDisplay = new ArrayList<>();
 
     }
 
@@ -81,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         mCountryListCursorAdapter = new CountryListCursorAdapter(this, countryListCursor, 0);
         // Attach cursor adapter to the ListView
         mListViewCountries.setAdapter(mCountryListCursorAdapter);
+
+        mCountryListCursorAdapter.generateArrayListOfAllCountryObjects(countryListCursor);
     }
 
     public void setCountryListOnClick() {
@@ -88,46 +88,72 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-                int mSelectedItem = position;
-                mCountryListCursorAdapter.notifyDataSetChanged();
+            int mSelectedItem = position;
+            mCountryListCursorAdapter.notifyDataSetChanged();
+            Toast.makeText(MainActivity.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
 
-                //i get the int position but
-                Toast.makeText(MainActivity.this, Integer.toString(position) + ": " + mCountryListCursorAdapter.getItem(position), Toast.LENGTH_SHORT).show();
-
-                addSelectedCountryToArray(position);
+            addSelectedCountryToArray(mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem));
             }
         };
 
         mListViewCountries.setOnItemClickListener(listViewOnItemClick);
     }
 
-    public ArrayList<Integer> addSelectedCountryToArray(int selectedCountry) {
+    public ArrayList<Country> addSelectedCountryToArray(Country selectedCountry) {
 
-        //eventually should be an array of country objects
-        //and on click should add a country object to the array list
-
+        //check if adding country is still under 8 countries and under budget
         if (mSelectedCountriesArrayList.size() < 8) {
-            mSelectedCountriesArrayList.add(selectedCountry);
-
-
+            if (isUnderSalaryCap(selectedCountry)){
+                mSelectedCountriesArrayList.add(selectedCountry);
+                //only set grid view if there are countries in mSelectedCountriesArrayList
+                setGridView();
+            } else {
+                Toast.makeText(MainActivity.this, "You will exceed your salary cap.", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(MainActivity.this, "You may only select a maximum of 8 countries.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "You may only select up to 8 countries.", Toast.LENGTH_SHORT).show();
         }
 
         return mSelectedCountriesArrayList;
-
     }
 
     public void setGridView() {
-        //this should be a grid view of country objects, probably .. .  .
-
         mGridView = (GridView) findViewById(R.id.grid_selected_countries);
-        mGridAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, mSelectedCountriesArrayList);
+
+        //the country to add to the grid view
+        int noToAdd = mSelectedCountriesArrayList.size() - 1;
+        String name = mSelectedCountriesArrayList.get(noToAdd).getmName();
+        mSelectedCountryNamesForGridDisplay.add(name);
+
+        mGridAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mSelectedCountryNamesForGridDisplay);
+
         mGridView.setAdapter(mGridAdapter);
 
 
     }
 
+    //unfortunately, we need a test country object before adding it to the array list of selected countries
+    public boolean isUnderSalaryCap(Country selectedCountry) {
+
+        float spentMoney = selectedCountry.getmPrice();
+
+        for (int i = 0; i < mSelectedCountriesArrayList.size() ; i++) {
+            float thisCountryPrice = mSelectedCountriesArrayList.get(i).getmPrice();
+            spentMoney = thisCountryPrice + spentMoney;
+        }
+
+        if (spentMoney > 15000) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    publc i
+
 }
 
+//add code to check for duplicate countries in array list
+//add code to get remaining budget
+//add code to tally country results and score
+//add code to tally user score
