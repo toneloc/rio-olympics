@@ -109,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
             if (isUnderSalaryCap(selectedCountry)){
                 if (!isADuplicateSelection(selectedCountry)) {
                     mSelectedCountriesArrayList.add(selectedCountry);
-                    //only set grid view if there are countries in mSelectedCountriesArrayList
                     setGridView();
                     calculateRemainingMoney(mSelectedCountriesArrayList);
                 }
@@ -135,6 +134,9 @@ public class MainActivity extends AppCompatActivity {
 
         mGridAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mSelectedCountryNamesForGridDisplay);
         mGridView.setAdapter(mGridAdapter);
+
+        //add this method - press and hold to delete
+        setupListViewListenerToDelete();
 
     }
 
@@ -181,6 +183,32 @@ public class MainActivity extends AppCompatActivity {
         }
         return isADuplicateSelection;
     }
+
+
+    // Attaches a long click listener to the listview to allow deletion with long click
+    private void setupListViewListenerToDelete() {
+        mGridView.setOnItemLongClickListener(
+                new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapter,
+                                                   View item, int pos, long id) {
+
+                        //remove this from the arraylist of lists to display
+                        mSelectedCountryNamesForGridDisplay.remove(pos);
+
+                        //aaaannd remove it from the object too
+                        mSelectedCountriesArrayList.remove(pos);
+
+                        // Refresh the adapter
+                        mGridAdapter.notifyDataSetChanged();
+
+                        // Return true consumes the long click event (marks it handled)
+                        return true;
+                    }
+                }
+        );
+    }
+
 
 }
 
