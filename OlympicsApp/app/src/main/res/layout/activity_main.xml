@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,29 +10,75 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.toneloc.olympicsapp.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear">
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/instructions"
+            android:layout_height="30dp"
+            android:text="Tap to add/remove countries."
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:textColor="#000000"
+            android:textStyle="italic"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/budget"
+            android:layout_height="30dp"
+            android:text="$15,000 remaining"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/green"
+            android:textStyle="bold"/>/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/your_team"
+        android:text="Your team"
+        android:textStyle="bold"
+        android:layout_below="@id/linear"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#000000" />
+
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:id="@+id/grid_selected_countries"
         android:layout_centerHorizontal="true"
         android:clickable="true"
-        android:numColumns="4" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@id/grid_selected_countries"
-        android:id="@+id/budget"
-        android:layout_height="30dp"
-        android:text="$15,000 remaining"/>
+        android:numColumns="4"
+        android:horizontalSpacing="10dp"
+        android:layout_below="@id/your_team"
+        android:verticalSpacing="10dp"/>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lvItems"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/budget"
+        android:layout_below="@id/grid_selected_countries"
         android:padding="5dp"/>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_media_play"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:layout_anchorGravity="bottom|end"/>
 
 </RelativeLayout>

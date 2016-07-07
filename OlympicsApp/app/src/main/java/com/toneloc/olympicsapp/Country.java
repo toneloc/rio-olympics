@@ -5,12 +5,12 @@ package com.toneloc.olympicsapp;
  */
 public class Country {
     private String mName;
-    private float mPrice;
+    private int mPrice;
     private int mIconID;
     private int mProjectedPoints;
 
 
-    public Country(String name, float price, int iconID, int projectedPoints) {
+    public Country(String name, int price, int iconID, int projectedPoints) {
         super();
         this.mName = name;
         this.mPrice = price;

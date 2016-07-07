@@ -1,21 +1,23 @@
 package com.toneloc.olympicsapp;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.util.*;
 import java.util.ArrayList;
-import android.content.Context;
+
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.widget.CursorAdapter;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Country> mSelectedCountriesArrayList;
     ArrayList<String> mSelectedCountryNamesForGridDisplay;
     TextView mRemainingMoney;
+    AlertDialog.Builder mAlert;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +59,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         populateListView();
-
         setCountryListOnClick();
-
+        buildAlertAndFab();
         mSelectedCountriesArrayList = new ArrayList<>();
         mSelectedCountryNamesForGridDisplay = new ArrayList<>();
+
 
     }
 
@@ -92,10 +96,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-            int mSelectedItem = position;
-            mCountryListCursorAdapter.notifyDataSetChanged();
+                int mSelectedItem = position;
+                mCountryListCursorAdapter.notifyDataSetChanged();
 
-            addSelectedCountryToArray(mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem));
+                addSelectedCountryToArray(mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem));
             }
         };
 
@@ -106,21 +110,21 @@ public class MainActivity extends AppCompatActivity {
 
         //check if adding country is still under 8 countries and under budget
         if (mSelectedCountriesArrayList.size() < 8) {
-            if (isUnderSalaryCap(selectedCountry)){
+            if (isUnderSalaryCap(selectedCountry)) {
                 if (!isADuplicateSelection(selectedCountry)) {
                     mSelectedCountriesArrayList.add(selectedCountry);
                     setGridView();
-                    calculateRemainingMoney(mSelectedCountriesArrayList);
+                    calculateRemainingMoney();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "You have already chosen this country.", Toast.LENGTH_SHORT).show();
                 }
-                else {
-                    Toast.makeText(MainActivity.this, "You have already chosen this country.", Toast.LENGTH_SHORT).show();}
             } else {
                 Toast.makeText(MainActivity.this, "You will exceed your salary cap.", Toast.LENGTH_SHORT).show();
             }
         } else {
             Toast.makeText(MainActivity.this, "You may only select up to 8 countries.", Toast.LENGTH_SHORT).show();
         }
-
         return mSelectedCountriesArrayList;
     }
 
@@ -132,20 +136,19 @@ public class MainActivity extends AppCompatActivity {
         String name = mSelectedCountriesArrayList.get(noToAdd).getmName();
         mSelectedCountryNamesForGridDisplay.add(name);
 
-        mGridAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mSelectedCountryNamesForGridDisplay);
+        mGridAdapter = new ArrayAdapter<>(this, R.layout.grid_value, mSelectedCountryNamesForGridDisplay);
         mGridView.setAdapter(mGridAdapter);
 
-        //add this method - press and hold to delete
+        //add this method - press to delete
         setupListViewListenerToDelete();
 
     }
 
     public boolean isUnderSalaryCap(Country selectedCountry) {
 
-        float spentMoney = selectedCountry.getmPrice();
-
-        for (int i = 0; i < mSelectedCountriesArrayList.size() ; i++) {
-            float thisCountryPrice = mSelectedCountriesArrayList.get(i).getmPrice();
+        int spentMoney = (int) selectedCountry.getmPrice();
+        for (int i = 0; i < mSelectedCountriesArrayList.size(); i++) {
+            int thisCountryPrice = (int) mSelectedCountriesArrayList.get(i).getmPrice();
             spentMoney = thisCountryPrice + spentMoney;
         }
 
@@ -156,24 +159,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public float calculateRemainingMoney(ArrayList<Country> selectedCountries) {
-        float spentMoney = 0;
+    public float calculateRemainingMoney() {
+        int spentMoney = 0;
 
-        for (int i = 0; i < mSelectedCountriesArrayList.size() ; i++) {
-            float thisCountryPrice = mSelectedCountriesArrayList.get(i).getmPrice();
+        for (int i = 0; i < mSelectedCountriesArrayList.size(); i++) {
+            int thisCountryPrice = (int) mSelectedCountriesArrayList.get(i).getmPrice();
             spentMoney = thisCountryPrice + spentMoney;
         }
-
-        float remainingMoney = 15000 - spentMoney;
-
-        mRemainingMoney.setText(Float.toString(remainingMoney) + " remaining");
-
+        int remainingMoney = 15000 - spentMoney;
+        mRemainingMoney.setText("$" + Integer.toString(remainingMoney));
         return remainingMoney;
     }
 
     public boolean isADuplicateSelection(Country selectedCountry) {
         boolean isADuplicateSelection = false;
-        for (int i = 0; i < mSelectedCountriesArrayList.size() ; i++) {
+        for (int i = 0; i < mSelectedCountriesArrayList.size(); i++) {
             if (selectedCountry == mSelectedCountriesArrayList.get(i)) {
                 isADuplicateSelection = true;
                 break;
@@ -184,34 +184,57 @@ public class MainActivity extends AppCompatActivity {
         return isADuplicateSelection;
     }
 
-
-    // Attaches a long click listener to the listview to allow deletion with long click
+    // Attaches a click listener to the listview to allow deletion with click
     private void setupListViewListenerToDelete() {
-        mGridView.setOnItemLongClickListener(
-                new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapter,
-                                                   View item, int pos, long id) {
-
-                        //remove this from the arraylist of lists to display
-                        mSelectedCountryNamesForGridDisplay.remove(pos);
-
-                        //aaaannd remove it from the object too
-                        mSelectedCountriesArrayList.remove(pos);
-
-                        // Refresh the adapter
-                        mGridAdapter.notifyDataSetChanged();
-
-                        // Return true consumes the long click event (marks it handled)
-                        return true;
-                    }
+        mGridView.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapter,
+                                   View item, int pos, long id) {
+                    //remove this from the arraylist of lists to display
+                    mSelectedCountryNamesForGridDisplay.remove(pos);
+                    //aaaannd remove it from the object too
+                    mSelectedCountriesArrayList.remove(pos);
+                    // Refresh the adapter
+                    mGridAdapter.notifyDataSetChanged();
+                    calculateRemainingMoney();
                 }
+            }
         );
     }
 
+    private void buildAlertAndFab() {
+        mAlert = new AlertDialog.Builder(this);     // new alert dialog w/access to context
+        mAlert.setView(R.layout.dialog_submit_team);    // set dialog view to xml file
 
+        // set a positive button :)
+        // and override the OnClickListener
+        mAlert.setPositiveButton(R.string.dialog_submit_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Dialog popup = (Dialog) dialog;
+            }
+        });
+
+        mAlert.setNegativeButton(R.string.dialog_submit_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAlert.show(); // show our dialog :)
+
+            }
+        });
+
+    }
 }
 
-//add flags
-//add expandable listview
-//add a fragment that shows a pop up
+//add a filter
+//send a bundle of the array list of selected countries
+//add flags in the list view
+//expand the listview
