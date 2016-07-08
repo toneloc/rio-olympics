@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,7 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
     SQLiteDatabase db;
     DatabaseHelper myDbHelper;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> mSelectedCountryNamesForGridDisplay;
     TextView mRemainingMoney;
     AlertDialog.Builder mAlert;
+    AlertDialog.Builder mDetailView;
 
 
     @Override
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         populateListView();
         setCountryListOnClick();
+        setOnLongClickForDetailView();
         buildAlertAndFab();
         mSelectedCountriesArrayList = new ArrayList<>();
         mSelectedCountryNamesForGridDisplay = new ArrayList<>();
@@ -98,12 +101,39 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 int mSelectedItem = position;
                 mCountryListCursorAdapter.notifyDataSetChanged();
-
                 addSelectedCountryToArray(mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem));
             }
         };
 
         mListViewCountries.setOnItemClickListener(listViewOnItemClick);
+    }
+
+
+
+    public void setOnLongClickForDetailView() {
+        AdapterView.OnItemLongClickListener listViewOnItemLongClick = new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+                int mSelectedItem = position;
+                //is this necessary?
+                mCountryListCursorAdapter.notifyDataSetChanged();
+
+                Country selectedCountry = mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem);
+
+                //goToNewActivity
+                Intent mIntentToBeLame = new Intent(MainActivity.this, DetailActivity.class);
+                String message = "hey main, plz learn 2 be chill and not call the RA next time";
+                mIntentToBeLame.putExtra("MSG", message);
+
+                startActivity(mIntentToBeLame);
+                return true;
+            }
+
+        };
+
+        mListViewCountries.setOnItemLongClickListener(listViewOnItemLongClick);
+
     }
 
     public ArrayList<Country> addSelectedCountryToArray(Country selectedCountry) {
@@ -131,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     public void setGridView() {
         mGridView = (GridView) findViewById(R.id.grid_selected_countries);
 
-        //the country to add to the grid view
+        //The country to add to the grid view.
         int noToAdd = mSelectedCountriesArrayList.size() - 1;
         String name = mSelectedCountriesArrayList.get(noToAdd).getmName();
         mSelectedCountryNamesForGridDisplay.add(name);
@@ -184,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
         return isADuplicateSelection;
     }
 
-    // Attaches a click listener to the listview to allow deletion with click
+    // Attaches a click listener to the listview to allow deletion with click.
     private void setupListViewListenerToDelete() {
         mGridView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
@@ -207,8 +237,8 @@ public class MainActivity extends AppCompatActivity {
         mAlert = new AlertDialog.Builder(this);     // new alert dialog w/access to context
         mAlert.setView(R.layout.dialog_submit_team);    // set dialog view to xml file
 
-        // set a positive button :)
-        // and override the OnClickListener
+        // Set a positive button. :)
+        // And override the OnClickListener.
         mAlert.setPositiveButton(R.string.dialog_submit_yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -226,15 +256,35 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mAlert.show(); // show our dialog :)
+                mAlert.show(); // show our dialog
 
             }
         });
 
     }
+
+//    private void buildDetailView(Country selectedCountry) {
+//        mDetailView = new AlertDialog.Builder(this);
+//        mDetailView.setView(R.layout.dialog_detail_view);
+//
+//        //set the country details with this information
+//        TextView countryTextView = (TextView) findViewById(R.id.country_details);
+//        countryTextView.setText(selectedCountry.getmName());
+//
+//        //set negative button to return to main screen
+//        mDetailView.setNegativeButton(R.string.dialog_submit_no, new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//            }
+//        });
+//
+//        mDetailView.show();
+//
+//    }
+
+
 }
 
 //add a filter
 //send a bundle of the array list of selected countries
 //add flags in the list view
-//expand the listview

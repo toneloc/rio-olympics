@@ -18,7 +18,8 @@
         <activity
             android:name=".Fab"
             android:label="@string/title_activity_fab"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DetailActivity"></activity>
     </application>
 
 </manifest>

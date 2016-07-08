@@ -3,4 +3,5 @@
     <string name="title_activity_fab">fab</string>
     <string name="dialog_submit_yes">Let\'s play!</string>
     <string name="dialog_submit_no">Cancel</string>
+    <string name="title_activity_detail">DetailActivity</string>
 </resources>
