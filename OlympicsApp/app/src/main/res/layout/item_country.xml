@@ -1,22 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:padding="10dp" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="9dp">
+
+    <!--country name-->
     <TextView
         android:id="@+id/txt_country_name"
-        android:layout_width="wrap_content"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:text="placeholder"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <!--golds-->
+    <ImageView
+        android:text="Cell 0"
+        android:src="@drawable/gold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="32dp"
+        android:maxHeight="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/txt_country_name"
+        android:id="@+id/img_gold"
+        android:layout_marginLeft="15dp" />
+
+    <TextView
+        android:text="Cell 1"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_gold"
+        android:id="@+id/txt_predicted_golds"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"/>
+
+    <!--silvers-->
+    <ImageView
+        android:text="Cell 2"
+        android:src="@drawable/silver"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="32dp"
+        android:maxHeight="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/txt_predicted_golds"
+        android:id="@+id/img_silver"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:text="Cell 3"
+        android:id="@+id/txt_predicted_silvers"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/img_silver"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true"/>
+
+    <!--bronzes-->
+    <ImageView
+        android:text="Cell 4"
+        android:src="@drawable/bronze"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="32dp"
+        android:maxHeight="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_toRightOf="@id/txt_predicted_silvers"
+        android:id="@+id/img_bronze"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:text="Cell 5"
+        android:id="@+id/txt_predicted_bronzes"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_bronze"
+        android:layout_marginLeft="5dp"
+        android:layout_centerVertical="true" />
+
+    <!--price-->
     <TextView
         android:id="@+id/txt_price"
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:gravity="right"
         android:layout_height="wrap_content"
         android:text="3"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-</LinearLayout>
+
+
+</RelativeLayout>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<LinearLayout-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:orientation="horizontal"-->
+<!--android:padding="10dp" >-->
+
+
+<!--<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:rowCount="1"-->
+    <!--android:columnCount="5"-->
+    <!--android:stretchMode="columnWidth"-->
+    <!--android:layout_gravity="center_horizontal" pa>-->
+
+    <!--//country name-->
+    <!--<TextView-->
+        <!--android:id="@+id/txt_country_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="placeholder"-->
+        <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
+
+    <!--//golds-->
+    <!--<ImageView-->
+        <!--android:text="Cell 0"-->
+        <!--android:src="@mipmap/ic_launcher" />-->
+    <!--<TextView-->
+        <!--android:text="Cell 1"-->
+        <!--android:id="@+id/txt_predicted_golds"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"/>-->
+
+    <!--//silvers-->
+    <!--<ImageView-->
+        <!--android:text="Cell 2"-->
+        <!--android:src="@mipmap/ic_launcher"/>-->
+    <!--<TextView-->
+        <!--android:text="Cell 3"-->
+        <!--android:id="@+id/txt_predicted_silvers"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"/>-->
+
+    <!--//bronzes-->
+    <!--<ImageView-->
+        <!--android:text="Cell 4"-->
+        <!--android:src="@mipmap/ic_launcher"/>-->
+    <!--<TextView-->
+        <!--android:text="Cell 5"-->
+        <!--android:id="@+id/txt_predicted_bronzes"-->
+        <!--android:textAppearance="?android:attr/textAppearanceMedium"/>-->
+<!--</GridLayout>-->
+
+<!--<TextView-->
+    <!--android:id="@+id/txt_price"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:gravity="right"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="3"-->
+    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+    <!--/>-->
+
+<!--</LinearLayout>-->
 

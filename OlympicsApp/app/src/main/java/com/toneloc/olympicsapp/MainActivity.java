@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity  {
     AlertDialog.Builder mAlert;
     AlertDialog.Builder mDetailView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +61,10 @@ public class MainActivity extends AppCompatActivity  {
 
         populateListView();
         setCountryListOnClick();
-        setOnLongClickForDetailView();
+//        setOnLongClickForDetailView(); --- took this out as I want to have all info in listView
         buildAlertAndFab();
         mSelectedCountriesArrayList = new ArrayList<>();
         mSelectedCountryNamesForGridDisplay = new ArrayList<>();
-
 
     }
 
@@ -88,6 +86,11 @@ public class MainActivity extends AppCompatActivity  {
         mListViewCountries = (ListView) findViewById(R.id.lvItems);
         // Setup cursor adapter using cursor from last step
         mCountryListCursorAdapter = new CountryListCursorAdapter(this, countryListCursor, 0);
+
+        //add a header row
+        View header = getLayoutInflater().inflate(R.layout.header, null);
+        mListViewCountries.addHeaderView(header);
+
         // Attach cursor adapter to the ListView
         mListViewCountries.setAdapter(mCountryListCursorAdapter);
 
@@ -109,32 +112,31 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-
-    public void setOnLongClickForDetailView() {
-        AdapterView.OnItemLongClickListener listViewOnItemLongClick = new AdapterView.OnItemLongClickListener() {
-
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
-                int mSelectedItem = position;
-                //is this necessary?
-                mCountryListCursorAdapter.notifyDataSetChanged();
-
-                Country selectedCountry = mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem);
-
-                //goToNewActivity
-                Intent mIntentToBeLame = new Intent(MainActivity.this, DetailActivity.class);
-                String message = "hey main, plz learn 2 be chill and not call the RA next time";
-                mIntentToBeLame.putExtra("MSG", message);
-
-                startActivity(mIntentToBeLame);
-                return true;
-            }
-
-        };
-
-        mListViewCountries.setOnItemLongClickListener(listViewOnItemLongClick);
-
-    }
+//    public void setOnLongClickForDetailView() {
+//        AdapterView.OnItemLongClickListener listViewOnItemLongClick = new AdapterView.OnItemLongClickListener() {
+//
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+//                int mSelectedItem = position;
+//                //is this necessary?
+//                mCountryListCursorAdapter.notifyDataSetChanged();
+//
+//                Country selectedCountry = mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem);
+//
+//                //goToNewActivity
+//                Intent mIntentToBeLame = new Intent(MainActivity.this, DetailActivity.class);
+//                String message = "hey main, plz learn 2 be chill and not call the RA next time";
+//                mIntentToBeLame.putExtra("MSG", message);
+//
+//                startActivity(mIntentToBeLame);
+//                return true;
+//            }
+//
+//        };
+//
+//        mListViewCountries.setOnItemLongClickListener(listViewOnItemLongClick);
+//
+//    }
 
     public ArrayList<Country> addSelectedCountryToArray(Country selectedCountry) {
 

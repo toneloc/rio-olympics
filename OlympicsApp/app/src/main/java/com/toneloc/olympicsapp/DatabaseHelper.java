@@ -34,7 +34,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     //Creates a empty database on the system and rewrites it with your own database.
-
     public void createDatabase() throws IOException {
 
         boolean dbExist = checkDatabase();
@@ -111,7 +110,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Open the database
         String myPath = DB_PATH + DB_NAME;
         myDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-
         return myDatabase;
 
     }

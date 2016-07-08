@@ -8,14 +8,18 @@ public class Country {
     private int mPrice;
     private int mIconID;
     private int mProjectedPoints;
+    private int mPredictedGolds;
+    private int mPredictedSilvers;
+    private int mPredictedBronzes;
 
-
-    public Country(String name, int price, int iconID, int projectedPoints) {
-        super();
-        this.mName = name;
-        this.mPrice = price;
-        this.mIconID = iconID;
-        this.mProjectedPoints = projectedPoints;
+    public Country(String mName, int mPrice, int mIconID, int mProjectedPoints, int mPredictedGolds, int mPredictedSilvers, int mPredictedBronzes) {
+        this.mName = mName;
+        this.mPrice = mPrice;
+        this.mIconID = mIconID;
+        this.mProjectedPoints = mProjectedPoints;
+        this.mPredictedGolds = mPredictedGolds;
+        this.mPredictedSilvers = mPredictedSilvers;
+        this.mPredictedBronzes = mPredictedBronzes;
     }
 
     public String getmName() {
@@ -32,6 +36,18 @@ public class Country {
 
     public int getmProjectedPoints() {
         return mProjectedPoints;
+    }
+
+    public int getmPredictedGolds() {
+        return mPredictedGolds;
+    }
+
+    public int getmPredictedSilvers() {
+        return mPredictedSilvers;
+    }
+
+    public int getmPredictedBronzes() {
+        return mPredictedBronzes;
     }
 
 

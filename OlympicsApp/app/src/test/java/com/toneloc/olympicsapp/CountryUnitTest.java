@@ -10,7 +10,7 @@ public class CountryUnitTest {
 
     @Test
     public void returnsCorrectName() throws Exception {
-        Country testCountry = new Country("Persia", 12, 14, 16);
+        Country testCountry = new Country("Persia", 12, 14, 16,12,12,12);
         assertEquals("Persia",testCountry.getmName());
     }
 }

@@ -39,12 +39,19 @@ public class CountryListCursorAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
 
         // Find fields to populate in inflated template
-        TextView tvBody = (TextView) view.findViewById(R.id.txt_country_name);
-        TextView tvPriority = (TextView) view.findViewById(R.id.txt_price);
+        TextView tvName = (TextView) view.findViewById(R.id.txt_country_name);
+        TextView tvPrice = (TextView) view.findViewById(R.id.txt_price);
+        TextView tvPredictedGolds = (TextView) view.findViewById(R.id.txt_predicted_golds);
+        TextView tvPredictedSilvers = (TextView) view.findViewById(R.id.txt_predicted_silvers);
+        TextView tvPredictedBronzes = (TextView) view.findViewById(R.id.txt_predicted_bronzes);
+
 
         // Extract properties from cursor
         String countryName = cursor.getString(cursor.getColumnIndexOrThrow("country"));
         int price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
+        int predictedGolds = cursor.getInt(cursor.getColumnIndex("predicted_golds"));
+        int predictedSilvers = cursor.getInt(cursor.getColumnIndex("predited_silvers"));
+        int predictedBronzes = cursor.getInt(cursor.getColumnIndex("predicted_bronzes"));
 
         //format number to local currency change locale to get locale . . . .
         NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
@@ -52,8 +59,12 @@ public class CountryListCursorAdapter extends CursorAdapter {
         formattedPrice = formattedPrice.replaceAll("\\.00", "");
 
         //populate fields with extracted properties
-        tvBody.setText(countryName);
-        tvPriority.setText(String.valueOf(formattedPrice));
+        tvName.setText(countryName);
+        tvPrice.setText(String.valueOf(formattedPrice));
+        tvPredictedGolds.setText(String.valueOf(predictedGolds));
+        tvPredictedSilvers.setText(String.valueOf(predictedSilvers));
+        tvPredictedBronzes.setText(String.valueOf(predictedBronzes));
+
     }
 
     public ArrayList<Country> generateArrayListOfAllCountryObjects(Cursor cursor) {
@@ -66,8 +77,11 @@ public class CountryListCursorAdapter extends CursorAdapter {
             // Extract properties from cursor
             String countryName = cursor.getString(cursor.getColumnIndexOrThrow("country"));
             int price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
+            int predictedGolds = cursor.getInt(cursor.getColumnIndex("predicted_golds"));
+            int predictedSilvers = cursor.getInt(cursor.getColumnIndex("predited_silvers"));
+            int predictedBronzes = cursor.getInt(cursor.getColumnIndex("predicted_bronzes"));
 
-            Country countryToAdd = new Country(countryName,price,0,0);
+            Country countryToAdd = new Country(countryName,price,0,0,predictedGolds,predictedSilvers,predictedBronzes);
             mArrayListOfAllCountryObjects.add(i,countryToAdd);
             cursor.moveToNext();
         }
