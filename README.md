@@ -14,21 +14,21 @@ The goal of this app is to submit a workable fantasy sports-style Android app in
 
 # Step 1
 
-* Make a "shoping cart" style e-commerce app. Enable users to shop around for different countries by price, population, predicted golds, silver, bronzes, etc.
-* Constrain user to select no more than 6 (7? 8?) countries
-* SQLite database with Country, Users, Results tables (see ERD image)
-* Country class
-* ListView and Cursor Adapters
-* Strings to be held as XML resources (as much as possible) to allow for language translatation and global reach
-* Flags and images to add color
+* Make a "shoping cart" style e-commerce app. Enable users to shop around for different countries by price, population, predicted golds, silver, bronzes, etc. - done, should add sort feature
+* Constrain user to select no more than 6 (7? 8?) countries - done, 8 countries
+* SQLite database with Country, Users, Results tables (see ERD image) - countries done, users not
+* Country class - done
+* ListView and Cursor Adapters -done
+* Strings to be held as XML resources (as much as possible) to allow for language translatation and global reach - not done
+* Flags and images to add color - not done
+* carousel view for instructions - done
 
 # Step 2 and brainstorming
 
-* web API to keep track of top user scores
+* web API to keep track of top user scores (all teams a good next step)
+* connect selections/users to database
 * play friends in groups
 * facilitate Bitcoin payments via multisig
 * user Fiverr or related source to add in real-time updates
 * notifications
-* Ripple effect for selection -  https://github.com/traex/RippleEffect
-* or swipe for selection - https://github.com/vcalvello/SwipeToAction
-* RecycleView for main page activity - https://github.com/CodeFalling/RecyclerViewSwipeDismiss
+*
