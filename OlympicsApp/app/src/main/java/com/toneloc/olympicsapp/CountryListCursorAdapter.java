@@ -74,6 +74,7 @@ public class CountryListCursorAdapter extends CursorAdapter {
         cursor.moveToFirst();
         //we can also create country objects here ... ?
         for (int i = 0; i < cursor.getCount(); i++) {
+            //add dummy to handle
             // Extract properties from cursor
             String countryName = cursor.getString(cursor.getColumnIndexOrThrow("country"));
             int price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));

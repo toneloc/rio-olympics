@@ -10,90 +10,54 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.toneloc.olympicsapp.MainActivity" >
 
-    <TextView
-        android:layout_height="30dp"
-        android:layout_width="wrap_content"
-        android:gravity="start"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/your_team"
-        android:text="Your team"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:textColor="#000000" />
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:id="@+id/grid_selected_countries"
-        android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:numColumns="4"
-        android:layout_below="@id/your_team"
-        android:background="@color/colorPrimary"
-        android:layout_margin="7dp"
-        android:listSelector="@android:color/transparent"
-        android:horizontalSpacing="6dip"
-        android:verticalSpacing="6dip"
-        android:paddingLeft="6dip"
-        android:paddingTop="6dip"
-        android:paddingRight="6dip"
-        android:paddingStart="6dip"
-        android:paddingBottom="2dip" />
+<com.synnapps.carouselview.CarouselView
+    android:id="@+id/customCarouselView"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_marginTop="20dp"
+    app:disableAutoPlayOnUserInteraction="true"
+    app:fillColor="#FFFFFFFF"
+    app:pageColor="#00000000"
+    app:radius="6dp"
+    app:strokeColor="#FF777777"
+    app:strokeWidth="1dp" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/grid_selected_countries"
-        android:id="@+id/linear">
+<TextView
+    android:id="@+id/customCarouselLabel"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/customCarouselView"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:fontFamily="sans-serif-light"
+    android:gravity="center_horizontal"
+    android:text="Rio 2016 Fantasy Olympics"
+    android:textColor="@android:color/black"
+    android:textSize="18sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/instructions"
-            android:layout_height="30dp"
-            android:text="Tap to add/remove countries."
-            android:layout_gravity="left"
-            android:textColor="#000000"
-            android:textStyle="italic" />
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            />
+<EditText
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:id="@+id/team_edit_text"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_below="@+id/customCarouselLabel"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true" />
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/budget"
-            android:layout_height="30dp"
-            android:text="$15,000 remaining"
-            android:layout_gravity="right"
-            android:layout_marginRight="10dp"
-            android:textColor="@color/green"
-            android:textStyle="bold"/>
-    </LinearLayout>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvItems"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/linear"
-        android:divider="@color/list_divider"
-        android:dividerHeight="1dp"
-        android:padding="8dp" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_media_play"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        app:layout_anchorGravity="bottom|end"/>
+<Button
+    android:id="@+id/pauseButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/team_edit_text"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:fontFamily="sans-serif-light"
+    android:gravity="center"
+    android:text="Let's play!"
+    android:textAllCaps="false"
+    android:textColor="@android:color/black"
+    android:textSize="16sp" />
 
 </RelativeLayout>
