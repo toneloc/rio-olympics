@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="7dp"
+    android:orientation="horizontal"
     android:background="@color/gray">
 
     <!--country name-->
-    <TextView
-        android:id="@+id/txt_country_name"
-        android:layout_width="230dp"
+    <TextView android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/txt_country_name"
         android:text="Country"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:paddingLeft="10dp"
-        />
+        android:drawableLeft="@drawable/ic_swap_vert_black_24dp"
+        android:drawablePadding="4dp"
+        android:onClick="sort"
+        android:tag="1"/>
 
-    <!--golds-->
+    <!--medals-->
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_toRightOf="@id/txt_country_name"
         android:id="@+id/txt_predicted_golds"
         android:text="Predicted Medals"
-        android:gravity="left"/>
+        android:gravity="left"
+        android:drawableLeft="@drawable/ic_swap_vert_black_24dp"
+        android:layout_marginLeft="150dp"
+        android:drawablePadding="4dp"
+        android:onClick="sort"
+        android:tag="2"/>
 
     <!--price-->
     <TextView
-        android:id="@+id/txt_price"
-        android:layout_width="match_parent"
-        android:gravity="right"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/txt_price"
+        android:gravity="right"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
         android:text="Price"
         android:paddingBottom="10dp"
-        android:paddingRight="10dp"/>
+        android:paddingRight="10dp"
+        android:drawableLeft="@drawable/ic_swap_vert_black_24dp"
+        android:drawablePadding="4dp"
+        android:layout_marginLeft="100dp"
+        android:onClick="sort"
+        android:tag="3"/>
 
-</RelativeLayout>
+</LinearLayout>

@@ -26,7 +26,7 @@ public class Country {
         return mName;
     }
 
-    public float getmPrice() {
+    public int getmPrice() {
         return mPrice;
     }
 

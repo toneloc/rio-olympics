@@ -21,7 +21,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PickTeamActivity extends AppCompatActivity {
 
@@ -72,7 +75,7 @@ public class PickTeamActivity extends AppCompatActivity {
     }
 
     public void populateListView() {
-        // Get access to the underlying writeable database
+        // Get access to the underlying writable database
         db = myDbHelper.getReadableDatabase();
         // Query for items from the database and get a cursor back
 
@@ -86,6 +89,7 @@ public class PickTeamActivity extends AppCompatActivity {
                 null); // h. limit
         // Setup cursor adapter
         mCountryListCursorAdapter = new CountryListCursorAdapter(this, countryListCursor, 0);
+
         // Find the ListView to populate
         mListViewCountries = (ListView) findViewById(R.id.lvItems);
 
@@ -106,7 +110,7 @@ public class PickTeamActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 int mSelectedItem = position;
 
-                //adjust pointer by one because of header rwo
+                //adjust pointer by one because of header row
                 mSelectedItem -= mListViewCountries.getHeaderViewsCount();
 
                 mCountryListCursorAdapter.notifyDataSetChanged();
@@ -262,6 +266,46 @@ public class PickTeamActivity extends AppCompatActivity {
 
     }
 
+    public void sort(View v) {
+        String stringTag = (String) v.getTag();
+        int type = Integer.parseInt(stringTag);
+
+        // Get access to the underlying writable database
+        db = myDbHelper.getReadableDatabase();
+        Cursor countryListCursor;
+
+        //type 1 is sort by country
+        if (type == 1) {
+            countryListCursor = db.rawQuery("SELECT * FROM countries ORDER BY country",null);
+            // Setup cursor adapter
+            mCountryListCursorAdapter = new CountryListCursorAdapter(this, countryListCursor, 0);
+            // Find the ListView to populate
+            mListViewCountries = (ListView) findViewById(R.id.lvItems);
+            // Attach cursor adapter to the ListView
+            mListViewCountries.setAdapter(mCountryListCursorAdapter);
+            // we use an arraylist of country object to send to selected gridview
+            mCountryListCursorAdapter.generateArrayListOfAllCountryObjects(countryListCursor);
+        }
+
+        //type 2 sorts by gold medals
+        else if (type == 2) {
+            countryListCursor = db.rawQuery("SELECT * FROM countries ORDER BY predicted_golds DESC",null);
+            mCountryListCursorAdapter = new CountryListCursorAdapter(this, countryListCursor, 0);
+            mListViewCountries = (ListView) findViewById(R.id.lvItems);
+            mListViewCountries.setAdapter(mCountryListCursorAdapter);
+            mCountryListCursorAdapter.generateArrayListOfAllCountryObjects(countryListCursor);
+        }
+
+        //type 3 sorts by price
+        else if (type == 3) {
+            countryListCursor = db.rawQuery("SELECT * FROM countries ORDER BY price",null);
+            mCountryListCursorAdapter = new CountryListCursorAdapter(this, countryListCursor, 0);
+            mListViewCountries = (ListView) findViewById(R.id.lvItems);
+            mListViewCountries.setAdapter(mCountryListCursorAdapter);
+            mCountryListCursorAdapter.generateArrayListOfAllCountryObjects(countryListCursor);
+        }
+
+    }
 }
 
 //http://stackoverflow.com/questions/28144503/android-passing-parameters-to-alert-dialog
