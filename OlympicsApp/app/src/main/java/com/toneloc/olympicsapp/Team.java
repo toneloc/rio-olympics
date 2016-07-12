@@ -1,14 +1,16 @@
 package com.toneloc.olympicsapp;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Created by t on 7/10/16.
  */
-public class Team {
+public class Team extends ArrayList {
     Integer score;
     String name;
+    Array teamIds;
     //ArrayList<Country> countrySelections;
 
     public Team(Integer score, String name) {

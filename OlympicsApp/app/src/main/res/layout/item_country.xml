@@ -2,14 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="9dp">
+    android:padding="8dp" >
+
+    <ImageView
+        android:text="Cell 0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="50dp"
+        android:minWidth="50dp"
+        android:maxHeight="32dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:id="@+id/img_flag" />
 
     <!--country name-->
     <TextView
         android:id="@+id/txt_country_name"
         android:layout_width="230dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:text="placeholder"
+        android:layout_toRightOf="@+id/img_flag"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <!--golds-->
@@ -56,7 +70,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/img_silver"
+        android:layout_toRightOf="@id/img_silver"
         android:layout_marginLeft="5dp"
         android:layout_centerVertical="true"/>
 
@@ -91,8 +105,10 @@
         android:gravity="right"
         android:layout_height="wrap_content"
         android:text="3"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:drawableEnd="@drawable/ic_add_circle_outline_black_24dp"
+        android:drawableRight="@drawable/ic_add_circle_outline_black_24dp"
+        android:drawablePadding="6dp"/>
 
 </RelativeLayout>
 

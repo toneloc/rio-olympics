@@ -2,6 +2,7 @@ package com.toneloc.olympicsapp;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,7 +10,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -31,15 +34,17 @@ public class PickTeamActivity extends AppCompatActivity {
     ArrayList<Country> mSelectedCountriesArrayList;
     ArrayList<String> mSelectedCountryNamesForGridDisplay;
     TextView mRemainingMoney;
+    TextView mTvTeamName;
     AlertDialog.Builder mAlert;
+    String mTeamName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pick_team);
 
         mRemainingMoney = (TextView) findViewById(R.id.budget);
-
+        mTvTeamName = (TextView) findViewById(R.id.txt_team_name);
         myDbHelper = new DatabaseHelper(this);
 
         try {
@@ -49,23 +54,28 @@ public class PickTeamActivity extends AppCompatActivity {
         }
         try {
             myDbHelper.openDatabase();
-
         } catch (SQLException sqle) {
             throw sqle;
         }
 
+        //get team name from main activity
+        Bundle extras = getIntent().getExtras();
+        String mTeamName = extras.getString("TEAM_NAME");
+        mTvTeamName.setText(mTeamName);
+
         populateListView();
         setCountryListOnClick();
-//        setOnLongClickForDetailView(); --- took this out as I want to have all info in listView
         buildAlertAndFab();
         mSelectedCountriesArrayList = new ArrayList<>();
         mSelectedCountryNamesForGridDisplay = new ArrayList<>();
+
     }
 
     public void populateListView() {
         // Get access to the underlying writeable database
         db = myDbHelper.getReadableDatabase();
         // Query for items from the database and get a cursor back
+
         Cursor countryListCursor = db.query("countries", // a. table
                 null, // b. column names
                 null, // c. selections
@@ -84,9 +94,9 @@ public class PickTeamActivity extends AppCompatActivity {
         mListViewCountries.addHeaderView(header, null, false);
 
         // Attach cursor adapter to the ListView
-        //*****************************************************************
         mListViewCountries.setAdapter(mCountryListCursorAdapter);
         mCountryListCursorAdapter.generateArrayListOfAllCountryObjects(countryListCursor);
+
     }
 
     public void setCountryListOnClick() {
@@ -106,33 +116,6 @@ public class PickTeamActivity extends AppCompatActivity {
 
         mListViewCountries.setOnItemClickListener(listViewOnItemClick);
     }
-
-
-//    public void setOnLongClickForDetailView() {
-//        AdapterView.OnItemLongClickListener listViewOnItemLongClick = new AdapterView.OnItemLongClickListener() {
-//
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
-//                int mSelectedItem = position;
-//                //is this necessary?
-//                mCountryListCursorAdapter.notifyDataSetChanged();
-//
-//                Country selectedCountry = mCountryListCursorAdapter.mArrayListOfAllCountryObjects.get(mSelectedItem);
-//
-//                //goToNewActivity
-//                Intent mIntentToBeLame = new Intent(MainActivity.this, DetailActivity.class);
-//                String message = "hey main, plz learn 2 be chill and not call the RA next time";
-//                mIntentToBeLame.putExtra("MSG", message);
-//
-//                startActivity(mIntentToBeLame);
-//                return true;
-//            }
-//
-//        };
-//
-//        mListViewCountries.setOnItemLongClickListener(listViewOnItemLongClick);
-//
-//    }
 
     public ArrayList<Country> addSelectedCountryToArray(Country selectedCountry) {
 
@@ -159,7 +142,9 @@ public class PickTeamActivity extends AppCompatActivity {
     public void setGridView() {
         mGridView = (GridView) findViewById(R.id.grid_selected_countries);
 
-        //The country to add to the grid view.
+        mGridView.setEmptyView(findViewById(R.id.empty));
+
+        //The country to add to the grid view (the '-1' fixed the header view row bug
         int noToAdd = mSelectedCountriesArrayList.size() - 1;
         String name = mSelectedCountriesArrayList.get(noToAdd).getmName();
         mSelectedCountryNamesForGridDisplay.add(name);
@@ -237,10 +222,13 @@ public class PickTeamActivity extends AppCompatActivity {
 
         // Set a positive button. :)
         // And override the OnClickListener.
-        mAlert.setPositiveButton(R.string.dialog_submit_yes, new DialogInterface.OnClickListener() {
+        mAlert.setTitle("Confirm?")
+                .setCancelable(true)
+                .setPositiveButton(R.string.dialog_submit_yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Dialog popup = (Dialog) dialog;
+                //send data and open GamePlayActivity
+                sendSelectedIdsOver();
             }
         });
 
@@ -261,10 +249,20 @@ public class PickTeamActivity extends AppCompatActivity {
 
     }
 
+    public void sendSelectedIdsOver() {
+        Intent intent = new Intent(PickTeamActivity.this, GameplayActivity.class);
+        //get names of selected countries and add them to array (could change this to ids if we want)
+        int[] selectedCountryIds = new int[mSelectedCountriesArrayList.size()];
+        for (int i = 0; i < mSelectedCountriesArrayList.size(); i++) {
+            selectedCountryIds[i] = mSelectedCountriesArrayList.get(i).getmId();
+        }
+        intent.putExtra("SELECTIONS", selectedCountryIds);
+        intent.putExtra("TEAM_NAME", mTeamName);
+        startActivity(intent);
+
+    }
+
 }
 
-//add a filter
-//send a bundle of the array list of selected countries
-//add flags in the list view
-//create a new PickCountry.java class
-//change Main activity to have a carousel view
+//http://stackoverflow.com/questions/28144503/android-passing-parameters-to-alert-dialog
+//we could have a go to next activity screen that takes back to old act then . .

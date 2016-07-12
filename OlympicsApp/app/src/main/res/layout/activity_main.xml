@@ -28,13 +28,13 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/customCarouselView"
-    android:layout_centerHorizontal="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
     android:layout_marginTop="15dp"
     android:fontFamily="sans-serif-light"
-    android:gravity="center_horizontal"
-    android:text="Rio 2016 Fantasy Olympics"
+    android:text="Pick your team name!"
     android:textColor="@android:color/black"
-    android:textSize="18sp" />
+    android:textSize="20sp" />
 
 <EditText
     android:layout_width="100dp"
@@ -47,17 +47,18 @@
     android:layout_alignParentStart="true" />
 
 <Button
-    android:id="@+id/pauseButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:id="@+id/btn_lets_play"
+    android:layout_width="170dp"
+    android:layout_height="93dp"
     android:layout_below="@+id/team_edit_text"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="15dp"
     android:fontFamily="sans-serif-light"
     android:gravity="center"
-    android:text="Let's play!"
+    android:text="@string/lets_play"
     android:textAllCaps="false"
+    android:background="@color/gray"
     android:textColor="@android:color/black"
-    android:textSize="16sp" />
+    android:textSize="24sp" />
 
 </RelativeLayout>

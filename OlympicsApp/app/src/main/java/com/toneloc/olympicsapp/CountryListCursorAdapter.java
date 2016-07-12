@@ -6,6 +6,7 @@ import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -44,14 +45,21 @@ public class CountryListCursorAdapter extends CursorAdapter {
         TextView tvPredictedGolds = (TextView) view.findViewById(R.id.txt_predicted_golds);
         TextView tvPredictedSilvers = (TextView) view.findViewById(R.id.txt_predicted_silvers);
         TextView tvPredictedBronzes = (TextView) view.findViewById(R.id.txt_predicted_bronzes);
-
+        ImageView ivFlag = (ImageView) view.findViewById(R.id.img_flag);
 
         // Extract properties from cursor
         String countryName = cursor.getString(cursor.getColumnIndexOrThrow("country"));
         int price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
         int predictedGolds = cursor.getInt(cursor.getColumnIndex("predicted_golds"));
+
+        //fix misspelling in on next db run
         int predictedSilvers = cursor.getInt(cursor.getColumnIndex("predited_silvers"));
         int predictedBronzes = cursor.getInt(cursor.getColumnIndex("predicted_bronzes"));
+
+        //get id --- image has same id as country id
+        int id = cursor.getInt(cursor.getColumnIndex("_id"));
+        String alpha = "r" + Integer.toString(id);
+        int idForImage = context.getResources().getIdentifier("com.toneloc.olympicsapp:drawable/" + alpha, null, null);
 
         //format number to local currency change locale to get locale . . . .
         NumberFormat n = NumberFormat.getCurrencyInstance(Locale.US);
@@ -64,6 +72,7 @@ public class CountryListCursorAdapter extends CursorAdapter {
         tvPredictedGolds.setText(String.valueOf(predictedGolds));
         tvPredictedSilvers.setText(String.valueOf(predictedSilvers));
         tvPredictedBronzes.setText(String.valueOf(predictedBronzes));
+        ivFlag.setImageResource(idForImage);
 
     }
 
@@ -81,8 +90,9 @@ public class CountryListCursorAdapter extends CursorAdapter {
             int predictedGolds = cursor.getInt(cursor.getColumnIndex("predicted_golds"));
             int predictedSilvers = cursor.getInt(cursor.getColumnIndex("predited_silvers"));
             int predictedBronzes = cursor.getInt(cursor.getColumnIndex("predicted_bronzes"));
+            int id = cursor.getInt(cursor.getColumnIndex("_id"));
 
-            Country countryToAdd = new Country(countryName,price,0,0,predictedGolds,predictedSilvers,predictedBronzes);
+            Country countryToAdd = new Country(countryName,price,id,0,predictedGolds,predictedSilvers,predictedBronzes);
             mArrayListOfAllCountryObjects.add(i,countryToAdd);
             cursor.moveToNext();
         }

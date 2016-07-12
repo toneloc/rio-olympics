@@ -6,16 +6,16 @@ package com.toneloc.olympicsapp;
 public class Country {
     private String mName;
     private int mPrice;
-    private int mIconID;
+    private int mId;
     private int mProjectedPoints;
     private int mPredictedGolds;
     private int mPredictedSilvers;
     private int mPredictedBronzes;
 
-    public Country(String mName, int mPrice, int mIconID, int mProjectedPoints, int mPredictedGolds, int mPredictedSilvers, int mPredictedBronzes) {
+    public Country(String mName, int mPrice, int mId, int mProjectedPoints, int mPredictedGolds, int mPredictedSilvers, int mPredictedBronzes) {
         this.mName = mName;
         this.mPrice = mPrice;
-        this.mIconID = mIconID;
+        this.mId = mId;
         this.mProjectedPoints = mProjectedPoints;
         this.mPredictedGolds = mPredictedGolds;
         this.mPredictedSilvers = mPredictedSilvers;
@@ -30,12 +30,8 @@ public class Country {
         return mPrice;
     }
 
-    public int getmIconID() {
-        return mProjectedPoints;
-    }
-
-    public int getmProjectedPoints() {
-        return mProjectedPoints;
+    public int getmId() {
+        return mId;
     }
 
     public int getmPredictedGolds() {

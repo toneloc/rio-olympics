@@ -4,4 +4,9 @@
     <string name="dialog_submit_yes">Let\'s play!</string>
     <string name="dialog_submit_no">Cancel</string>
     <string name="title_activity_detail">DetailActivity</string>
+    <string name="lets_play">Let\'s play!</string>
+    <string name="instructions_1">Pick up to eight countries for your team.</string>
+    <string name="instructions_2">As your countries get medals, you get points!\nGold Medal= 10 points\nSilver Medal = 6 points\nBronze Medal = 3 points</string>
+    <string name="instructions_3">Play your friends!</string>
+
 </resources>
