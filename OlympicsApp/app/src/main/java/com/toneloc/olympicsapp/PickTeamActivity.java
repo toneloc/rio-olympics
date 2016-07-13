@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,13 +66,17 @@ public class PickTeamActivity extends AppCompatActivity {
         //get team name from main activity
         Bundle extras = getIntent().getExtras();
         String mTeamName = extras.getString("TEAM_NAME");
-        mTvTeamName.setText(mTeamName);
+        mTvTeamName.setText("Pick your team, " + mTeamName);
 
         populateListView();
         setCountryListOnClick();
+        showInstructionsDialog();
+
+
         buildAlertAndFab();
         mSelectedCountriesArrayList = new ArrayList<>();
         mSelectedCountryNamesForGridDisplay = new ArrayList<>();
+
 
     }
 
@@ -146,8 +152,6 @@ public class PickTeamActivity extends AppCompatActivity {
     public void setGridView() {
         mGridView = (GridView) findViewById(R.id.grid_selected_countries);
 
-        mGridView.setEmptyView(findViewById(R.id.empty));
-
         //The country to add to the grid view (the '-1' fixed the header view row bug
         int noToAdd = mSelectedCountriesArrayList.size() - 1;
         String name = mSelectedCountriesArrayList.get(noToAdd).getmName();
@@ -185,6 +189,10 @@ public class PickTeamActivity extends AppCompatActivity {
         }
         int remainingMoney = 15000 - spentMoney;
         mRemainingMoney.setText("$" + Integer.toString(remainingMoney));
+
+        if (remainingMoney < 5000) {
+            mRemainingMoney.setTextColor(ContextCompat.getColor(PickTeamActivity.this, R.color.red));
+        }
         return remainingMoney;
     }
 
@@ -226,8 +234,7 @@ public class PickTeamActivity extends AppCompatActivity {
 
         // Set a positive button. :)
         // And override the OnClickListener.
-        mAlert.setTitle("Confirm?")
-                .setCancelable(true)
+        mAlert.setCancelable(true)
                 .setPositiveButton(R.string.dialog_submit_yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -305,6 +312,23 @@ public class PickTeamActivity extends AppCompatActivity {
             mCountryListCursorAdapter.generateArrayListOfAllCountryObjects(countryListCursor);
         }
 
+    }
+
+    private void showInstructionsDialog() {
+        mAlert = new AlertDialog.Builder(this);     // new alert dialog w/access to context
+        mAlert.setView(R.layout.dialog_instructions);    // set dialog view to xml file
+
+        // Set a positive button. :)
+        // And override the OnClickListener.
+        mAlert.setCancelable(true)
+                .setPositiveButton("   Ok   ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //send data and open GamePlayActivity
+                    }
+                });
+
+        mAlert.show();
     }
 }
 

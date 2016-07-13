@@ -7,6 +7,5 @@
         android:layout_height="wrap_content"
         android:text="Would you like to play with this team? \n\n You cannot change it after this."
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:padding="14dp"
-    />
+        android:padding="14dp" />
 </LinearLayout>

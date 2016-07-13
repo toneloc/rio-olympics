@@ -1,8 +1,13 @@
 package com.toneloc.olympicsapp;
 
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -68,7 +73,16 @@ public class MainActivity extends AppCompatActivity  {
             View customView = getLayoutInflater().inflate(R.layout.view_custom, null);
             TextView labelTextView = (TextView) customView.findViewById(R.id.labelTextView);
             ImageView fruitImageView = (ImageView) customView.findViewById(R.id.fruitImageView);
-            fruitImageView.setImageResource(sampleImages[position]);
+
+            //using picasso to handle OOM errors
+            switch (position) {
+                case 0: Picasso.with(MainActivity.this).load(R.drawable.image_1).into(fruitImageView);
+                    break;
+                case 1: Picasso.with(MainActivity.this).load(R.drawable.image_2).into(fruitImageView);
+                    break;
+                case 2: Picasso.with(MainActivity.this).load(R.drawable.image_3).into(fruitImageView);
+            }
+
             labelTextView.setText(instructionText[position]);
 
             return customView;
@@ -80,7 +94,6 @@ public class MainActivity extends AppCompatActivity  {
         button.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 Intent intentToGoToPickTeam = new Intent(MainActivity.this, PickTeamActivity.class);
-
 
                 //get team name on submission
                 String teamName = editTeam.getText().toString();

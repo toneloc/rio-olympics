@@ -106,8 +106,6 @@
         android:layout_height="wrap_content"
         android:text="3"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:drawableEnd="@drawable/ic_add_circle_outline_black_24dp"
-        android:drawableRight="@drawable/ic_add_circle_outline_black_24dp"
         android:drawablePadding="6dp"/>
 
 </RelativeLayout>
@@ -116,116 +114,116 @@
 
 
     <!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:padding="8dp" >-->
 
     <!--<ImageView-->
-        <!--android:text="Cell 0"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:maxWidth="50dp"-->
-        <!--android:minWidth="50dp"-->
-        <!--android:maxHeight="32dp"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:id="@+id/img_flag" />-->
+    <!--android:text="Cell 0"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:maxWidth="50dp"-->
+    <!--android:minWidth="50dp"-->
+    <!--android:maxHeight="32dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:id="@+id/img_flag" />-->
 
     <!--&lt;!&ndash;country name&ndash;&gt;-->
     <!--<TextView-->
-        <!--android:id="@+id/txt_country_name"-->
-        <!--android:layout_width="170dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="10dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:text="placeholder"-->
-        <!--android:layout_toRightOf="@+id/img_flag"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
+    <!--android:id="@+id/txt_country_name"-->
+    <!--android:layout_width="170dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginStart="10dp"-->
+    <!--android:layout_marginLeft="10dp"-->
+    <!--android:text="placeholder"-->
+    <!--android:layout_toRightOf="@+id/img_flag"-->
+    <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
 
     <!--&lt;!&ndash;golds&ndash;&gt;-->
     <!--<ImageView-->
-        <!--android:text="Cell 0"-->
-        <!--android:src="@drawable/gold"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:maxWidth="22dp"-->
-        <!--android:maxHeight="22dp"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_toRightOf="@id/txt_country_name"-->
-        <!--android:id="@+id/img_gold"-->
-        <!--android:layout_marginLeft="6dp" />-->
+    <!--android:text="Cell 0"-->
+    <!--android:src="@drawable/gold"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:maxWidth="22dp"-->
+    <!--android:maxHeight="22dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:layout_toRightOf="@id/txt_country_name"-->
+    <!--android:id="@+id/img_gold"-->
+    <!--android:layout_marginLeft="6dp" />-->
 
     <!--<TextView-->
-        <!--android:text="Cell 1"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toRightOf="@id/img_gold"-->
-        <!--android:id="@+id/txt_predicted_golds"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_centerVertical="true"/>-->
+    <!--android:text="Cell 1"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_toRightOf="@id/img_gold"-->
+    <!--android:id="@+id/txt_predicted_golds"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_centerVertical="true"/>-->
 
     <!--&lt;!&ndash;silvers&ndash;&gt;-->
     <!--<ImageView-->
-        <!--android:text="Cell 2"-->
-        <!--android:src="@drawable/silver"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:maxWidth="22dp"-->
-        <!--android:maxHeight="22dp"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_toRightOf="@id/txt_predicted_golds"-->
-        <!--android:id="@+id/img_silver"-->
-        <!--android:layout_marginLeft="6dp"/>-->
+    <!--android:text="Cell 2"-->
+    <!--android:src="@drawable/silver"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:maxWidth="22dp"-->
+    <!--android:maxHeight="22dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:layout_toRightOf="@id/txt_predicted_golds"-->
+    <!--android:id="@+id/img_silver"-->
+    <!--android:layout_marginLeft="6dp"/>-->
 
     <!--<TextView-->
-        <!--android:text="Cell 3"-->
-        <!--android:id="@+id/txt_predicted_silvers"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toRightOf="@id/img_silver"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_centerVertical="true"/>-->
+    <!--android:text="Cell 3"-->
+    <!--android:id="@+id/txt_predicted_silvers"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_toRightOf="@id/img_silver"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_centerVertical="true"/>-->
 
     <!--&lt;!&ndash;bronzes&ndash;&gt;-->
     <!--<ImageView-->
-        <!--android:text="Cell 4"-->
-        <!--android:src="@drawable/bronze"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:maxWidth="22dp"-->
-        <!--android:maxHeight="22dp"-->
-        <!--android:adjustViewBounds="true"-->
-        <!--android:scaleType="fitXY"-->
-        <!--android:layout_toRightOf="@id/txt_predicted_silvers"-->
-        <!--android:id="@+id/img_bronze"-->
-        <!--android:layout_marginLeft="6dp" />-->
+    <!--android:text="Cell 4"-->
+    <!--android:src="@drawable/bronze"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:maxWidth="22dp"-->
+    <!--android:maxHeight="22dp"-->
+    <!--android:adjustViewBounds="true"-->
+    <!--android:scaleType="fitXY"-->
+    <!--android:layout_toRightOf="@id/txt_predicted_silvers"-->
+    <!--android:id="@+id/img_bronze"-->
+    <!--android:layout_marginLeft="6dp" />-->
 
     <!--<TextView-->
-        <!--android:text="Cell 5"-->
-        <!--android:id="@+id/txt_predicted_bronzes"-->
-        <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_toRightOf="@id/img_bronze"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_centerVertical="true" />-->
+    <!--android:text="Cell 5"-->
+    <!--android:id="@+id/txt_predicted_bronzes"-->
+    <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_toRightOf="@id/img_bronze"-->
+    <!--android:layout_marginLeft="5dp"-->
+    <!--android:layout_centerVertical="true" />-->
 
     <!--&lt;!&ndash;price&ndash;&gt;-->
     <!--<TextView-->
-        <!--android:id="@+id/txt_price"-->
-        <!--android:layout_width="fill_parent"-->
-        <!--android:gravity="right"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="3"-->
-        <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
-        <!--android:drawableEnd="@drawable/ic_add_circle_outline_black_24dp"-->
-        <!--android:drawableRight="@drawable/ic_add_circle_outline_black_24dp"-->
-        <!--android:drawablePadding="6dp"/>-->
+    <!--android:id="@+id/txt_price"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:gravity="right"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="3"-->
+    <!--android:textAppearance="?android:attr/textAppearanceLarge"-->
+    <!--android:drawableEnd="@drawable/ic_add_circle_outline_black_24dp"-->
+    <!--android:drawableRight="@drawable/ic_add_circle_outline_black_24dp"-->
+    <!--android:drawablePadding="6dp"/>-->
 
-<!--</RelativeLayout>-->
+    <!--</RelativeLayout>-->
 

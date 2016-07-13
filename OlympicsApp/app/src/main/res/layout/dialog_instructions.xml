@@ -5,8 +5,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Testing"
-        android:id="@+id/country_details"
-    />
-
+        android:text="Pick up to eight countries for your team, but stay under the $15,000 salary cap!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:padding="14dp"
+        />
 </LinearLayout>

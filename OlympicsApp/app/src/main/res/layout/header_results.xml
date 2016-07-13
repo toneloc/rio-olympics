@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="horizontal">
+
+    <!--country-->
+    <TextView
+        android:id="@+id/txt_country_name"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:text="Country"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:drawableLeft="@drawable/ic_swap_vert_black_24dp"
+        android:drawablePadding="4dp"
+        android:gravity="center_vertical"
+        android:onClick="sort"
+        android:tag="1"/>
+
+
+    <!--medals-->
+    <TextView
+        android:text="Medals Earned"
+        android:id="@+id/medals"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1.4"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:drawableLeft="@drawable/ic_swap_vert_black_24dp"
+        android:gravity="center_vertical"
+        android:drawablePadding="4dp"
+        android:onClick="sort"
+        android:tag="2"/>
+
+
+    <!--price-->
+    <TextView
+        android:text="Price"
+        android:id="@+id/price"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight=".5"
+        android:drawableLeft="@drawable/ic_swap_vert_black_24dp"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:gravity="center_vertical"
+        android:drawablePadding="4dp"
+        android:onClick="sort"
+        android:tag="3" />
+
+</LinearLayout>
